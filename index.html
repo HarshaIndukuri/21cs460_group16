@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <title>21cs460_group16</title>
+        <style>
+            table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr {background-color:snow }
+
+th {
+  background-color: #275797;
+  color: white;
+}
+
+</style>
+    </head>
+   
+
+    <body style="background:#a7adba;">
+
+        <h1 style="font-size: 40px;"><center>Identifying Impact Craters on the Surface of the Moon</center></h1>
+        <p style="text-align: center;">
+        <a href="https://github.com/HarshaIndukuri/21cs460_group16">GitHub</a> || <a href="http://imbrium.mit.edu/DATA/SLDEM2015/">Initial Dataset</a>
+        </p>
+        <br>
+        <br>
+        <p><b>The Team</b>: Suraj Sahoo (SMS), Harsha Indukuri (SMS) </p>
+        <p><b>Our Mentor</b>: Dr.Guneshwar Thangjam (SEPS)</p>
+        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 40px;">&#8594;</span>Introduction</h3>
+        <ul>    
+        <li><b>What is an </b><i> Impact Crater?</i></li>
+        <p>An Impact Crater is an approximately circular depression in the surface of a planet, moon, or other solid body in the Solar System or elsewhere, formed by the hypervelocity impact of a smaller body, like an asteroid or a meteor. </p>
+        <li><b>Why</b> does anyone <b>study</b> the impact craters of the moon?</li>
+        <p>Their study can potentially reveal valuable information about the history of the solar system and are considered the lunar equivalent of <i>fossils</i>. Another important reason to study them is because they are the most prominent topographic feature on the lunar surface, and understanding where they are located and how they are shaped can help create <i>Human Bases</i> on the moon and carry out <i>Lunar surafce activities</i> in the future .</p>
+        <li><b>How</b> can <b>Machine Learning</b> help this cause ?</li>
+        <p>Traditionally, crater counting on the lunar surface has been done by visual inspection, which resulted in the detection of only the large craters. However,starting from the last decade or two researchers have developed various <u>Crater Detection Algorithms</u> that are currently heavily reliant on neural networks(especially CNN's) and other machine learning methods to help speed up this process and also to help detect small craters.</p>
+        </ul>
+        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 40px;">&#8594;</span>What we hope to achieve by Midway:</h3>
+        <ul>
+            <li style="font-size: large;">Reading relevant literature to gain domain knowledge</li>
+            <li style="font-size: large;">Gathering data and converting it into a format that we can use</li>
+            <li style="font-size: large;">Conduct supervised learning using labelled image data from the moon and try to detect the craters in the image and their ages. We will use CNN's and their variants for this</li>
+            <li style="font-size: large;">If previous goal is reached without many hiccups, use CNN's to conduct unsupervised learning on unlabelled lunar surface images to classify regions on the moon (ex: plains,craters,mountains etc.) </li>
+
+        
+        
+        </ul>
+        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 40px;">&#8594;</span>Work Division (Till Midway)</h3>
+       <table>
+        <tr>
+        <th>Work</th>
+        <th>Assigned To</th>
+        </tr>
+        <tr>
+            <td>Webpage Maintenance</td>
+            <td>Harsha</td>
+        </tr>
+        <tr>
+        <td>Reading literature</td>
+        <td>Both</td>
+        </tr>
+        <tr>
+        <td>Gathering Data and Processing</td>
+        <td>Suraj</td>
+        </tr>
+        <tr>
+        <td>Programming</td>
+        <td>Both</td>
+        </tr>
+        </table>
+        <br>
+        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 40px;">&#8594;</span>Plan for After Midway</h3>
+        <p>Just detecting craters especially on the surafce of the moon using CNN's is not a very new idea, and has been attempted with different datasets, fairly extensively. However the use of <b>Transfer Learning</b> might allow us to apply what our model learns from the lunar surface to other planetary objects . This idea has not been explored as much as "plain lunar crater detection", and we hope to find some interesting links between craters on the moon and craters on other planets. </p>
+
+        <h3 style="font-size: 22px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 30px;">&#8594;</span>Python Libraries we plan on using</h3>
+        <ul>
+            <li>SkImage</li>
+            <li>Keras</li>
+            <li>TensorFlow</li>
+            <li>Pandas</li>
+        </ul>
+
+    </body>
+</html>
