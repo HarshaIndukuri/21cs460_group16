@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>21cs460_group16</title>
+        <style>
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 style="font-size: 38px;"><center>Midway Report</center></h1>
+        <p style="text-align: center;">
+            <a href=https://www.niser.ac.in/~smishra/teach/cs460/2021/project/21cs460_group16/">Project Proposal</a>
+        </p>
+        <p style="text-align: center;">
+            <a href="https://github.com/HarshaIndukuri/21cs460_group16">GitHub</a>
+        </p>
+        <h3>Understanding the Data <a href="https://arxiv.org/abs/1803.02192">[1]</a> </h3> 
+        <p> A <u>digital elevation model</u> is a specialized database that represents the relief of a surface between points of known elevation.
+        </p>
+        <p>The DEM that we used to create our input data is the Lunar Reconnaisance Orbiter (LRO) and Kaguya
+        merged digital elevation model (<a href="https://astrogeology.usgs.gov/search/details/Moon/LRO/LOLA/Lunar_LRO_LOLA_Global_LDEM_118m_Mar2014/cub">original</a>), which spans ±60 degrees in latitude (and the full range in longitude) and has a resolution of 59m/pixel. It is a massive (90000×30000 pixels) greyscale image in which the depressions on the  lunar surface are represented by darker pixels, while regions closer to the surface are reprsented by lighter pixels. 
+        </p>   
+        <p> The input data was derived from the DEM in 3 main steps :
+            <li>randomly cropping a square area of the global map</li>
+            <li>downsampling the cropped image to 256 × 256 pixels</li>
+            <li>transforming the image to an orthographic projection</li>
+            The position of the cropped region in the first step was randomly selected with a uniform distribution, and its length is randomly selected from a log-uniform distribution. The third step often produces non-square images which are padded with zeros to make sure they are 256 × 256 pixel images.
+        </p>   
+        <p>The labels (i.e ground truth images) were generated using the most popular (human made) lunar crater catalog (<a href = "https://astrogeology.usgs.gov/search/map/Moon/Research/Craters/GoranSalamuniccar_MoonCraters">link</a>) as follows :
+            <li>For each input image, a corresponding 256 × 256 pixel ground truth "output target" image is created </li>
+            <li>Craters are encoded in these targets as rings with thickness of 1 pixel,with radii and centers derived from craters’ physical locations and diameters in the catalog. </li>
+        </p>    
+        <p>Initially we attempted to generate the data by ourselves, but the global dem was too large to handle on our systems. Credit to Silburt et al <a href="https://arxiv.org/abs/1803.02192">[1]</a> for making their randomly generated input data and target masks publicly available <a href="https://zenodo.org/record/1133969#.YWw0lRpByIs">here</a> (approximately 10GB).</p>
+           
+       <h3>Understanding the Task</h3>
+       <p>Having the input image and target pairs simplifies a difficult task like crater detection into a supervised learning problem as we can now see that each input image is essentially a datapoint and each target is a label. Going a step further, the problem, when seen at the level of a pixel is actually just a <u>binary classification problem</u> because, the aim is to classify each pixel on a test image as a lying on a crater or not lying on a crater. The more common phrase for pixel level classification is, <u>image segmentation</u> .
+       </p> 
+       <h3>Algorithms Attempted</h3>
+       <li>U-Net</li>
+       <li>Random Forest Classifier for Image Segmentation</li>
+
+       <h3 style = "font_size:20px" >The U-Net</h3>
+       <p>The U-Net is a Convolutional Neural Network architecture that is specifically used for image segmentation tasks. It takes images as input and outputs images of the same size in which each pixel is classified to a particular class. This is how it looks: </p>
+       <img src = 'unet_pic_small.png' alt = UNetArchitecture class="center">
+       <p>References:
+           <li> The original <a href = "https://arxiv.org/abs/1505.04597">paper</a></li>
+           <li>Keras Documentation <a href = "https://keras.io/examples/vision/oxford_pets_image_segmentation/">sample</a></li>
+           <li>TowardsDataScience <a href="https://towardsdatascience.com/unet-line-by-line-explanation-9b191c76baf5">unet-line-by-line-explanation</a></li>
+        </p> 
+        <p>For the results of our implementation : Ipython uploaded in <a href = "https://github.com/HarshaIndukuri/21cs460_group16/blob/main/Custom%20UNet%20Crater%20Detection.ipynb">GitHub</a>
+        </p>
+        <p>Few concessions and changes in our implementation of the U-Net : </p>
+            <li>The training set has 30000 images, but we trained the U-Net on only 5000 images</li>
+            <li>The first layer of the traditional U-Net has 64 kernels (as indicated in the picture above), but our network has only 16</li>
+            <li>The traditional U-net doesn't have a dropout layer and batch normalization, but we tried both of them in our network </li>
+        <p>These changes had to be made because of the limited computational resources at our disposal. Even by training on only 5000 images for just 5 epochs, the network took over 2 hours to train.</p>
+        
+        <h3 style = "font_size:20px" >Image Segmentation with RandomForest</h3>  
+        <p>Credit to Group 17 (Nishant and Rion) for sharing this idea with us. Our datasets are similar, so we tried one of their baselines on our data.</p> 
+        <p>Reference Video :<a href = "https://www.youtube.com/watch?v=6yW31TT6-wA&t=868s&ab_channel=DigitalSreeni"> segmentation with traditional ml models </a> </p> 
+        
+        <p>The implementation: Only 3 images(?!) were used in training. The 3 256 × 256 pixel dem images were broken down so that each pixel represented a datapoint and the corresponding targets were broken down, so that each target pixel represents a label. Various other features were also extracted by convolving the images with kernels like Gabor,Scharr and Sobel edge detctors. 
+            The data was then passed through a random forest classifier that tried to predict whether a given pixel from a DEM image was lying on a crater or not.
+        </p>   
+        <p> Code, uploaded as Ipython in <a href = "https://github.com/HarshaIndukuri/21cs460_group16/blob/main/Crater%20Detection%20with%20RandomForestClassifier.ipynb">GitHub</a>.</p>
+    </body>
+</html>
