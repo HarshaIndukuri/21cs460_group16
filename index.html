@@ -12,45 +12,46 @@ th, td {
   padding: 8px;
 }
 
-tr {background-color:snow }
+tr {background-color:rgb(45, 72, 90);
+    color:black }
 
 th {
   background-color: #275797;
-  color: white;
+  color:black;
 }
 
 </style>
     </head>
    
 
-    <body style="background:#a7adba;">
+    <body background="images/moon background.jpg" text = 'cyan'>
 
-        <h1 style="font-size: 40px;"><center>Identifying Impact Craters on the Surface of the Moon</center></h1>
+        <h1 style="font-size: 40px; color:silver"><center>Detecting Impact Craters on the Lunar Surface</center></h1>
         <p style="text-align: center;">
-        <a href="https://github.com/HarshaIndukuri/21cs460_group16">GitHub</a> | <a href="http://imbrium.mit.edu/DATA/SLDEM2015/">Initial Dataset</a>
+        <a href="https://github.com/HarshaIndukuri/21cs460_group16">GitHub</a>
         </p>
         <br>
         <br>
-        <p><b>The Team</b>: Suraj Sahoo (SMS), Harsha Indukuri (SMS) </p>
-        <p><b>Our Mentor</b>: Dr.Guneshwar Thangjam (SEPS)</p>
-        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 40px;">&#8594;</span>Introduction</h3>
+        <p style = "color:silver"><b>The Team</b>: Suraj Sahoo (SMS), Harsha Indukuri (SMS) </p>
+        <p style = "color:silver"><b>Our Mentor</b>: Dr.Guneshwar Thangjam (SEPS)</p>
+        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;color:silver"><span style="font-size: 40px;">&#8594;</span>Introduction</h3>
         <ul>    
-        <li><b>What is an </b><i> Impact Crater?</i></li>
+        <li style = "color:seashell"><b>What is an </b><u> Impact Crater?</u></li>
         <p>An Impact Crater is an approximately circular depression in the surface of a planet, moon, or other solid body in the Solar System or elsewhere, formed by the hypervelocity impact of a smaller body, like an asteroid or a meteor. </p>
-        <li><b>Why</b> does anyone <b>study</b> the impact craters of the moon?</li>
-        <p>Their study can potentially reveal valuable information about the history of the solar system and are considered the lunar equivalent of <i>fossils</i>. Another important reason to study them is because they are the most prominent topographic feature on the lunar surface, and understanding where they are located and how they are shaped can help create <i>Human Bases</i> on the moon and carry out <i>Lunar surafce activities</i> in the future .</p>
-        <li><b>How</b> can <b>Machine Learning</b> help this cause ?</li>
+        <li style = "color:seashell"><b>Why</b> does anyone <b>study</b> the impact craters of the moon?</li>
+        <p>Their study can potentially reveal valuable information about the history of the solar system and are considered the lunar equivalent of <i>fossils</i>. Another important reason to study them is because they are the most prominent topographic feature on the lunar surface, and understanding where they are located and how they are shaped can help create Human Bases on the moon and carry out <i>Lunar surafce activities</i> in the future .</p>
+        <li style = "color:seashell"><b>How</b> can <b>Machine Learning</b> help this cause ?</li>
         <p>Traditionally, crater counting on the lunar surface has been done by visual inspection, which resulted in the detection of only the large craters. However,starting from the last decade or two researchers have developed various <u>Crater Detection Algorithms</u> that are currently heavily reliant on neural networks(especially CNN's) and other machine learning methods to help speed up this process and also to help detect small craters.</p>
         </ul>
         <br>
-        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 40px;">&#8594;</span>Goals of our Project & Expected Results</h3>
+        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;color:silver"><span style="font-size: 40px;">&#8594;</span>Goals of our Project & Expected Results</h3>
         <ul>
             <li>To collect images and/or DEM(Digital Elevation Mapping) data from Lunar Reconnaissance Orbiter Camera(LROC) and create a model for automatically identifying lunar impact craters through machine learning techniques.</li>
             <li>To determine the age of these craters through absolute and relative dating methods.</li>
             <li>To generalize the model to obtain a fairly extensive crater detection system for arbitrary planetary bodies in the solar system.</li>
         </ul>
 
-        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 40px;">&#8594;</span>What we hope to achieve by Midway:</h3>
+        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;color:silver"><span style="font-size: 40px;">&#8594;</span>What we hope to achieve by Midway:</h3>
         <ul>
             <li style="font-size: large;">Reading relevant literature to gain domain knowledge</li>
             <li style="font-size: large;">Gathering data and converting it into a format that we can use</li>
@@ -60,7 +61,7 @@ th {
         
         
         </ul>
-        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 40px;">&#8594;</span>Work Division (Till Midway)</h3>
+        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;color:silver">Work Division (Till Midway)</h3>
        <table>
         <tr>
         <th>Work</th>
@@ -84,10 +85,10 @@ th {
         </tr>
         </table>
         <br>
-        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 40px;">&#8594;</span>Plan for After Midway</h3>
+        <h3 style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;color:silver">Post-Midway Plan</h3>
         <p>Just detecting craters especially on the surafce of the moon using CNN's is not a very new idea, and has been attempted with different datasets, fairly extensively. However the use of <b>Transfer Learning</b> might allow us to apply what our model learns from the lunar surface to other planetary objects . This idea has not been explored as much as "plain lunar crater detection", and we hope to find some interesting links between craters on the moon and craters on other planets. </p>
 
-        <h3 style="font-size: 22px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 30px;">&#8594;</span>References:</h3>
+        <h3 style="font-size: 22px;font-family: Arial, Helvetica, sans-serif;color:silver">References:</h3>
         <ul>
             <li>Yang C., Zhao, H., Bruzzone, L. et al. Lunar impact crater identification and age estimation with Chang’E data by deep and transfer learning. Nat Commun 11, 6358 (2020).<a href="https://doi.org/10.1038/s41467-020-20215-y">[1]</a></li>
             <br>
@@ -95,13 +96,18 @@ th {
             <br>
             <li>D.M. DeLatte, S.T. Crites, N. Guttenberg, T. Yairi, Automated crater detection algorithms from a machine learning perspective in the convolutional neural network era, Advances in Space Research, Volume 64, Issue 8, 2019,Pages 1615-1628, ISSN 0273-1177 <a href="https://doi.org/10.1016/j.asr.2019.07.017">[2]</a></li>
         </ul>
-        <h3 style="font-size: 22px;font-family: Arial, Helvetica, sans-serif;"><span style="font-size: 30px;">&#8594;</span>Python Libraries we plan on using</h3>
+        <h3 style="font-size: 22px;font-family: Arial, Helvetica, sans-serif;color:silver">Python Libraries we will probably use:</h3>
         <ul>
             <li>SkImage</li>
             <li>Keras</li>
             <li>TensorFlow</li>
             <li>Pandas</li>
+            <li>Scikit-Learn</li>
+            <li>Numpy</li>
         </ul>
+
+        <h3 style="font-size: 22px;font-family: Arial, Helvetica, sans-serif;color:silver"> Proposal Presentation Slides: </h3>
+        <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ6oOYqPVzZdiiIyZR_aJUbTAYTg1_BsyCzYjuqERo0Qs-XeOlm0cpHV54bUNHh8-GV7pC5YCIvzfjI/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
     </body>
 </html>
