@@ -76,6 +76,10 @@
         <p>Output from our Random Forest:</p>
         <p style="text-align: center;" ><img class =“right” src='images/RF input.png' height="250" width="500"><img class =“left” src='images/RFoutput.png' height="250" width = "250"></p>
         <p>Clearly it doesn't work as well as the U-Net, but remember that it only trained on 3 images! If you look closely at the rightmost image, you should be able to see that the white pixels kind of resemble the craters that are visible in the middle image.</p>
+       
+        <p>Out of curiosity,SVM (with RBF kernel) was also tried in the same fashion instead of a Random Forest.</p> 
+        <p>Link to <a href = "https://github.com/HarshaIndukuri/21cs460_group16/blob/main/Crater%20Detection%20with%20SVM.ipynb">Ipython</a></p>
+        <p>Don't be fooled by the high accuracy, it just predicted every pixel as non-crater and because of the huge disparity in the number of crater pixels and non-crater pixels, the accuracy was very high. So Random Forest is definitely the one to be preferred out of these two. </p>
         
         <h3 style = "color:white">Papers (mostly used to understand the data and the task):</h3>
         <li>Ari Silburt, Mohamad Ali-Dib, Chenchong Zhu, Alan Jackson, Diana Valencia, Yevgeni Kissin, Daniel Tamayo, Kristen Menou, "Lunar Crater Identification via Deep Learning" <a href = https://arxiv.org/abs/1803.02192>[1]</a></li>
