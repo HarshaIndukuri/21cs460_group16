@@ -64,7 +64,7 @@
             <li>The first layer of the traditional U-Net has 64 kernels (as indicated in the picture above), but our network has only 16</li>
             <li>The traditional U-net doesn't have a dropout layer and batch normalization, but we tried both of them in our network </li>
         <p>These changes had to be made because of the limited computational resources at our disposal. Even by training on only 5000 images for just 5 epochs, the network took over 2 hours to train.</p>
-        
+        <p>We also tried a shorter U-Net for 2 epochs to see if so many layers are actually required. It performed just as good as the whole U-Net across 2 epochs. Link to <a href = "https://github.com/HarshaIndukuri/21cs460_group16/blob/main/shortened%20U-Net%20.ipynb">Ipynb</a></p>
         <h3 style = "color:white" >Image Segmentation with RandomForest</h3>  
         <p>Credit to Group 17 (Nishant and Rion) for sharing this idea with us. Our datasets are similar, so we tried one of their baselines on our data.</p> 
         <p>Reference Video :<a href = "https://www.youtube.com/watch?v=6yW31TT6-wA&t=868s&ab_channel=DigitalSreeni"> segmentation with traditional ml models </a> </p> 
