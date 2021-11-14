@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <title>21cs460_group16</title>
+        <style>
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
+            .right {float: right;}
+            .left {float:left;}
+            .body {border: 5px solid white;
+                    padding: 100%;
+                    margin: 5;
+                }
+        </style>
+    </head>
+    <body style="margin-left: 130px;margin-right:130px;margin-bottom: 50px;"background="images/moon background.jpg" text = 'cyan'>
+    <h1 style = "color:magenta;"><center>Final Report</center></h1>
+    <p style="text-align:center"><a href="https://github.com/HarshaIndukuri/21cs460_group16">GitHub</a></p>
+    <h2 style = "color:white"><center>Midway Recap (in slides)</h2></center>
+    <center><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTTYwSQ6bw57qSW8mpAjO7U8r2NTkB0AIKBr37zK0YLeWOTLP-ZVTV1Sr0Knv4mOu1c7zexFDhBWr5x/embed?start=false&loop=true&delayms=60000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></center>
+    
+    <h2 style = "color:white"><center>Summary of Work (in slides)</h2></center>
+    <center><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSGm-Oyj11sTVNBYMdKoYDH0j_zvEPmLillMcAWQdWT-0f28qi3_aHVoFTN44tXDF1NXoKMsz_madD4/embed?start=false&loop=false&delayms=10000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></center>
+    <br>
+    <br>
+    <h2 style = "color:white"><center>Brief U-Net Description</h2></center>
+    <p style="text-align: center;">Pretty much any CNN architecture used for image segmentation is a clever combination of Encoder and Decoder paths. A small description of what goes on in the U-Net is given below. </p>
+    <p style="text-align: center;">A U-net architecture consists of a specific encoder-decoder scheme: The encoder reduces the spatial dimensions in every layer and increases the channels. On the other hand, the decoder increases the spatial dims while reducing the channels.</p>
+    <h3 style="text-align: center;color:white;">Encoder Path</h3>    
+    <p style = "text-align: center;">It consists of the repeated application of two 3x3 convolutions. Convolution is the process of transforming an image by applying a kernel over each pixel and its local neighbors across the entire image. The kernel is a matrix of values whose size and values determine the transformation effect of the convolution process. 
+    Each conv is followed by a ReLU(rectified linear unit used as activation function) and batch normalization. Batch normalization is a technique for training very deep neural networks that standardizes the inputs to a layer for each mini-batch. This has the effect of stabilizing the learning process and dramatically reducing the number of training epochs required to train deep networks.
+    Then a 2x2 max pooling operation is applied to reduce the spatial dimensions. Max Pooling is a pooling operation that calculates the maximum value for patches of a feature map, and uses it to create a downsampled (pooled) feature map. 
+    Again, at each downsampling step, we double the number of feature channels, while we cut in half the spatial dimensions.</p> 
+    <h3 style="text-align: center;color:white;"> Decoder Path</h3> 
+    <p style ="text-align: center;">Every step in the expansive path consists of an upsampling of the feature map(the output of the layer), followed by a 2x2 transpose convolution, which halves the number of feature channels. The transposed convolutional layer is just standard convolution but with a modified input, preserving the dimension. 
+    We also have a concatenation with the corresponding feature map from the contracting path, and usually a 3x3 convolutional (each followed by a ReLU). 
+    Lastly, the final output layer is a 1x1 convolutional layer with a sigmoid activation and a single filter to output pixel-wise class scores. Here is the architecture we used before our midway presentation:</p>
+    <img src = 'images/unet.png' alt = UNetArchitecture class="center" height="400" width = "50"> 
+
+
+    <h2 style = "color:white"><center>The First Step Post-Midway</h2></center>
+    <p style="text-align: center;"><a href = "https://colab.research.google.com/drive/1JZuKH1cI6jBB9vNwKko-k3mXoJrjWpVt?usp=sharing">Colab Notebook</a></p>
+    <p style = 'text-align: center;'>Pre midway, we implemented the U-Net architecture similar to the one that was first introduced in 2015, and not the one that was followed in our <a href = "https://arxiv.org/abs/1803.02192">primary reference.</a>Although it performed fairly well, the truth is that it only trained on 5000 image-mask pairs,with only 16 filters in the first layer. These are pretty big concessions especially if we want our results to resemble the results shown in <a href = "https://arxiv.org/abs/1803.02192">[1]</a>. We also need this trained model to test on images from other bodies with craters similar to the moon's like Mars,Mercury and Vesta. However, we forgot to save the trained model, which prompted us to rerun the U-Net, and this time we follow the architecture recommended in <a href = "https://arxiv.org/abs/1803.02192">[1]</a>. The figure is given below, and the main differences between this version of the U-Net and the original one are listed in the slides above.  </p>
+    <br>
+    <img src = 'images/silburt unet.png' alt = UNetArchitecture class="center" height="400" width = "50"> 
+    <p style="text-align: center;">The only difference between our implementation and the one shown above is that the first layer above starts with 112 filters, but we started with 56, which is a big step up from 16. Another improvement from our pre-midway implementation is that we trained on 15000 image-mask pairs instead of 5000. On our own computers, this would have been impossible, so we used Google Colab to run this network and also saved the trained model to Google Drive so that it can be used in the future also. The total runtime was about 8.5 hours, and there is a clear visible improvement in the model's performance when compared with our pre-midway implementation:</p>
+    <p style="text-align: center;" ><img class =“right” src='images/colab unet prediction.png' height="250" width="750"></p>
+    <p style="text-align: center;">Again the loss function used was <u>Binary Cross Entropy</u> (as suggested in <a href = "https://arxiv.org/abs/1803.02192">[1]</a>) and the metric we used is Binary Accuracy. ADAM optimizer was used and this time we also used a batch size of 10 (8 was used in <a href = "https://arxiv.org/abs/1803.02192">[1]</a>). The size of our <u>validation set was 5000</u>, and we only ran the model for <u>one epoch</u> and the results are (note that all values are pixel-wise):
+    <ul style="color: azure;">Training Loss : 0.1267</ul>
+    <ul style="color: azure;">Training Accuracy: 96.59 % </ul>
+    <ul style="color: azure;">Validation Loss: 0.0862</ul>
+    <ul style="color: azure;">Validation Accuracy : 97.17 %</ul>
+    <br>
+    <u>Remarks</u>: The accuracy values look very encouraging. However, Binary Cross Entropy is a better indicator of the model's performance than accuracy is because, in a given image, there are far more pixels not on craters than pixels that are on craters, so even a stupid model that predicts every pixel as non-crater would get a high accuracy score. Having said all of this, the loss values are also very low and the fact that validation loss is lower than training loss also indicates that we are likely not overfitting to the training data.
+    <p style="text-align: center;">For anyone who wants to test the trained model themselves, here is the <a href = "https://drive.google.com/drive/folders/1Ntp847WVn3WPNA61bACPXY-FsfcbNPfD?usp=sharing">link</a> to the trained model.</p>
+    
+    <h2 style = "color:white"><center>Brief ResNet Discussion</h2></center> 
+    <p style="text-align: center;">The ResNet is another popular CNN architecture used in computer vision, and it is mainly used for tasks like image classification and object detection. However, the idea that was debuted in the ResNet back in 2015 proves to be very widely applicable. Before we get to the idea, let's first look at a graph : </p>
+    <p style="text-align: center;"><img class="center" src='images/depthverror_plain.png' height='400' width='50'></p>
+    <p style="text-align: center;">The graph above is a depth vs training error graph for a normal neural network. Going by usual logic, we would expect that a deep neural network must be overfitting and hence training error must be low. But in practice, training error actually increases as depth increases! Why does this happen? The most common reason is probably the vanishing/exploding gradient problem. The way neural networks update their weights is through a method called "back propagation". Look at the next picture: </p>
+    <p style="text-align: center;"><img class="center" src='images/backprop.png' height='400' width='50'></p>
+    <p style="text-align: center;">The main takeaway is that the weight updates are computed using the famous <u>chain rule</u>. The picture has a sample calculation and you can see how many terms are multiplied to compute a weight update in the first layer. Keep in mind that this is a very small network. If there are around 100 layers, imagine how many terms would have to be multiplied to get a weight update in one of the layers close to the input layer. Now, why is this a problem? Suppose each of these updates is a value less than 0.5. Then, in each iteration, a weight in the first layer would barely update because the product of 100 terms each less than 0.5 is extremely small. This is what we call the <u>vanishing gradient problem</u>. Similarly, if the terms are slightly large, then the update to weights in the first layer would be too large, and convergence to the optimum would be impossible. This is the <u>exploding gradient</u> problem. These are the problems a deep NN usually faces, and this kind of justifies what we saw in the graph above. Now look at the ResNet's depth vs training error graph:</p>
+    <p style="text-align: center;"><img class="center" src='images/resnet graph.png' height='400' width='50'></p>
+    <p style="text-align: center;">The ResNet seems completely unaffected by the vanishing/exploding gradient nonsense. The reason is that it extensively uses <u>skip connections</u>. The details of why skip connections are so effective won't be discussed, but some intuition will be given. First, this is how a skip connection looks: </p>
+    <p style="text-align: center;"><img class="center" src='images/resblock.png' height='400' width='50'></p>
+    <p style="text-align: center;">In simple words, a skip connection passes the output from one layer to layer deeper in the neural network unaltered and this output is added to the output of the deeper layer. The intuitive explanation behind why this helps with the vanishing/exploding gradient problem is that it provides an alternate pathway for the backprop algo to update weights. For those who understand, a skip connection is actually just an identity function, and its derivative won't hurt weight updates earlier in the NN.</p>
+    <p style="text-align: center;">Coming back to our project, we wanted to integrate more of these skip connections/residual blocks into our U-Net to maybe add a couple more convolutional layers. However, upon googling, this experiment had already been performed for crater detection and we decided to test out their architecture and see if actually outperforms our previous architecture.</p>
+
+    <h2 style = "color:white"><center>Effective Residual U-Net</h2></center> 
+    <p style="text-align:center;"><a href = "https://colab.research.google.com/drive/1HV_Y10Z6YJxmOkwJv2czo2OQl5pKciX4?usp=sharing">Colab Notebook</a></p>
+    <p style="text-align:center;"><a href = "https://www.mdpi.com/2072-4292/12/17/2694/htm">Reference</a></p>
+    <p style="text-align: center;">Here is the architecture :</p>
+    <p style="text-align:center;"><img class="center" src='images/eru_net.png'</p>
+    <p style="text-align: center;">The only real difference between this architecture and the U-Net architecture we first implemented is the "black arrow" in the picture. The picture shows what the black arrow represents, and if you compare it with our first architecture, this one has more convolutional layers, which we don't have to be too worried about because skip connections are involved. As before, we trained this architecture on 15000 image-mask pairs, with 56 filters in the first layer. The validation set was again, 5000 image-mask pairs. This time we also included Mean IoU (intersection over union) as an additional metric as accuracy is not very reliable in our case. </p>
+    
+    <h3 style = "color:white"><center>ERU-Net Results</center></h3>
+    <p style="text-align: center;">As before, we trained this architecture on 15000 image-mask pairs, with 56 filters in the first layer. The validation set was again, 5000 image-mask pairs. This time we also included Mean IoU (intersection over union) as an additional metric as accuracy is not very reliable in our case. Here are the values after 1 epoch of training and the program took about 4 hours to run because we were able to use a TPU through google colab.</p>
+    <ul style="color: azure;">Training Loss : 0.0957</ul>
+    <ul style="color: azure;">Training Accuracy: 97.08 % </ul>
+    <ul style="color: azure;">Validation Loss: 0.0893</ul>
+    <ul style="color: azure;">Validation Accuracy : 97.19 %</ul>
+    <ul style="color: azure;">Training Mean IoU: 0.4855</ul>
+    <ul style="color: azure;">Validation Mean IoU: 0.4857</ul>
+    
+    <br>
+
+    <p style="text-align: center;"><u>Remarks:</u>These values are comparable to our previous architecture, and right away it is hard to conclude if the ERU-Net is actually better.The Mean IoU values are decent and this is exactly what we want. Mean IoU is a measure of how similar the predicted images are to the masks. since we are trying to detect more craters than are actually present in the masks, we don't really want a perfect Mean IoU score. Side by side comparision of U-net prediction and ERU-Net prediction on a sample image:</p>
+    <p style="text-align:center;"><img class="center" src='images/combined_u_eru.png'height = '200' width="1200"</p>
+
+    <h2 style = "color:white"><center>Transferring our Learnings to other Bodies in the Solar System</h2></center> 
+    <p style="text-align: center;"><a href = https://colab.research.google.com/drive/1to4QeW97fwupGDu7IHzs8l0IbTmPr2kl?usp=sharing>Colab Notebook</a></p>
+    <p style="text-align: center;">Getting images similar to the ones our models trained on from other planets or bodies was very difficult. The image sizes were too large and cropping them into the exact size and resolution we needed was not possible. However, me managed to get lower quality images from Mercury and our mentor Dr.Guneshwar Thangjam had some cropped images from Vesta and Mars for us to test our models on. There is also a good reason behind picking these three bodies. It is believed that the impact craters on these three bodies resemble those on our moon. So we can expect good preictions from our models. However, we can only visually verify how well the model is doing, because, unlike the moon, we don't have ground truth crater masks for these three bodies. Our primary reference <a href = "https://www.researchgate.net/publication/323597886_Lunar_Crater_Identification_via_Deep_Learning">[1]</a> has conducted this experiment for Mars and we are now extending to a couple of images from Mars and Vesta also. Here are the results:</p>
+    <h3 style = "color:white"><center>Mercury Images</h3></center>
+    <img src = 'images/Mercury 1.png' alt = Mercury1 class="left" height="200" width = "400"> <img src = 'images/Mercury 2.png' alt = Mercury1 class="right" height="200" width = "400"></p>
+    <p style="text-align: center;">These are pretty remarkable results. In all the moon predictions, the U-Net predicted more or less perfect circles, but if you look at its Mercury predictions, the craters are skewed and not uniform. This is a pretty good reason to believe that the U-Net has learned how to predict a general impact crater.
